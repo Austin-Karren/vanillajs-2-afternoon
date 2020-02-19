@@ -101,6 +101,7 @@
                 <p>I</p>
                 <p>O</p>
                 <p>P</p>
+                <p>[</p>
             </div>
         </div>
 
@@ -116,7 +117,7 @@
             />
             <polygon points="470,100 485,100 485,10 515,10 515,220 470,220 470,100" class="white pianoKey" data-key="106" />
             <polygon points="515,10 545,10 545,100 560,100 560,220 515,220 515,10" class="white pianoKey" data-key="114" />
-            <polygon points="560,100 575,100 575,10 590,10 590,100 605,100 605,220 560,220" class="white pianoKey" data-key="116" />
+            <polygon points="" class="white pianoKey" data-key="116" />
             <polygon points="605,100 620,100 620,10 650,10 650,220 605,220 605,100" class="white pianoKey" data-key="121" />
             <polygon points="650,10 680,10 680,100 695,100 695,220 650,220 650,10" class="white pianoKey" data-key="117" />
             <polygon points="695,100 710,100 710,10 725,10 725,100 740,100 740,220 695,220 695,100" class="white pianoKey" data-key="105"
@@ -124,6 +125,8 @@
             <polygon points="740,100 755,100 755,10 770,10 770,100 785,100 785,220 740,220 740,100" class="white pianoKey" data-key="111"
             />
             <polygon points="785,100 800,100 800,10 830,10 830,220 785,220 785,100" class="white pianoKey" data-key="112" />
+            <!-- <polygon points="560,100 575,100 575,10 590,10 590,100 605,100 605,220 560,220" class="white pianoKey" data-key="219" /> -->
+
             <polygon points="230,10 260,10 260,100 230,100 230,10" class="black pianoKey" data-key="49" />
             <polygon points="275,10 305,10 305,100 275,100 275,10" class="black pianoKey" data-key="50" />
             <polygon points="365,10 395,10 395,100 365,100 365,10" class="black pianoKey" data-key="51" />
@@ -160,11 +163,24 @@
         <audio data-key="111" src="./pianoSounds/high_a.mp3"></audio>
         <audio data-key="48" src="./pianoSounds/high_a_sharp.mp3"></audio>
         <audio data-key="112" src="./pianoSounds/high_b.mp3"></audio>
+        <audio data-key="219" src="./pianoSounds/high-c4.mp3"></audio>
     </main>
 
 </body>
 
 <script>
+    window.addEventListener("keypress", function(keyPressEvent) {
+    const tone = document.querySelector(`audio[data-key="${keyPressEvent.keyCode}"]`);
+    if (!tone) return;
+    const pianoKey = document.querySelector(`.pianoKey[data-key="${keyPressEvent.keyCode}"]`);
+    tone.currentTime = 0;
+    pianoKey.classList.add("pressed");
+    tone.play();
+    setTimeout(function() {
+    pianoKey.classList.remove("pressed");
+  }, 300);
+});
+
 </script>
 
 </html>
